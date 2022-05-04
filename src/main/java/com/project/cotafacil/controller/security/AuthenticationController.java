@@ -27,6 +27,8 @@ import com.project.cotafacil.dto.model.security.TokenDTO;
 import com.project.cotafacil.model.dto.response.Response;
 import com.project.cotafacil.util.security.JwtTokenUtil;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthenticationController {
@@ -41,6 +43,7 @@ public class AuthenticationController {
 	private UserDetailsService userDetailsService;
 	
 	@PostMapping
+	@ApiOperation("Rota para fazer autenticação do usuário")
 	public ResponseEntity<Response<TokenDTO>> generateTokenJwt(@Valid @RequestBody JwtUserDTO dto, BindingResult result) throws AuthenticationException {
 		
 		Response<TokenDTO> response = new Response<>();
