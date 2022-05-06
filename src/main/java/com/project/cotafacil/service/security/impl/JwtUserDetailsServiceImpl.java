@@ -20,9 +20,7 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
 	@Autowired
 	private UserService userService;
 	
-	/**
-	 * @see UserDetailsService#loadUserByUsername(String)
-	 */
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
@@ -34,5 +32,5 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
 
 		throw new UsernameNotFoundException("Email não encontrado.");
 	}
-
+	
 }

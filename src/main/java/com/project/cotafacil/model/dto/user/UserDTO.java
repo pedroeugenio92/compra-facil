@@ -30,20 +30,11 @@ public class UserDTO {
 	@NotNull(message = "O nome não pode ser nulo.")
 	@Length(min=3, max=255, message="O nome deve conter entre 3 e 255 caracteres.")
 	private String name;
-	
-	@NotNull(message = "A senha não pode ser nula.")
-	@Length(min=6, message="A senha deve conter pelo menos 6 caracteres.")
-	private String password;
-	
+
 	@Getter
 	@Length(max=255, message="O email deve conter no máximo 255 caracteres.")
 	@Email(message="Email inválido.")
 	private String mail;
-
-	
-	public String getPassword() throws NoSuchAlgorithmException, UnsupportedEncodingException {
-		return BcryptUtil.encode(password);
-	}
 	
 	public User convertDTOToEntity() {
 		return new ModelMapper().map(this, User.class);

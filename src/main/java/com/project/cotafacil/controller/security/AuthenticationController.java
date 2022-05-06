@@ -5,42 +5,32 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.cotafacil.dto.model.security.JwtUserDTO;
 import com.project.cotafacil.dto.model.security.TokenDTO;
 import com.project.cotafacil.model.dto.response.Response;
-import com.project.cotafacil.util.security.JwtTokenUtil;
+import com.project.cotafacil.service.security.AuthenticationService;
+import com.project.cotafacil.service.user.UserService;
 
 import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthenticationController {
+
 	
 	@Autowired
-	private AuthenticationManager authenticationManager;
-
+	private UserService userService;
+	
 	@Autowired
-	private JwtTokenUtil jwtTokenUtil;
-
-	@Autowired
-	private UserDetailsService userDetailsService;
+	private AuthenticationService authenticationService;
 	
 	@PostMapping
 	@ApiOperation("Rota para fazer autenticação do usuário")
@@ -56,13 +46,8 @@ public class AuthenticationController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		Authentication authentication = authenticationManager.authenticate
-				(new UsernamePasswordAuthenticationToken(dto.getMail(), dto.getPassword()));
-		SecurityContextHolder.getContext().setAuthentication(authentication);
+		response.setData(authenticationService.authenticate(dto));
 		
-		UserDetails userDetails = userDetailsService.loadUserByUsername(dto.getMail());
-		String token = jwtTokenUtil.getToken(userDetails);
-		response.setData(new TokenDTO(token));
 		
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
