@@ -27,9 +27,6 @@ public class AuthenticationController {
 
 	
 	@Autowired
-	private UserService userService;
-	
-	@Autowired
 	private AuthenticationService authenticationService;
 	
 	@PostMapping

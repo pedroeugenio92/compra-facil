@@ -34,7 +34,7 @@ public class UserController {
 	
 	@GetMapping
 	@ApiOperation(value = "Rota que busca todos os usuários")
-	public ResponseEntity<Response<List<UserDTO>>> findAll(BindingResult result){
+	public ResponseEntity<Response<List<UserDTO>>> findAll(){
 		Response<List<UserDTO>> response = new Response<>();
 		
 		List<User> findUsers = service.findAll();

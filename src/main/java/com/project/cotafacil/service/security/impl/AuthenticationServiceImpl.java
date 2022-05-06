@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import com.project.cotafacil.dto.model.security.JwtUserDTO;
 import com.project.cotafacil.dto.model.security.TokenDTO;
-import com.project.cotafacil.model.dto.response.Response;
 import com.project.cotafacil.model.security.JwtUser;
 import com.project.cotafacil.model.user.User;
 import com.project.cotafacil.service.security.AuthenticationService;
