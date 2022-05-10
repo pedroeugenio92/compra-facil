@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.modelmapper.ModelMapper;
 
-import com.project.cotafacil.model.user.User;
+import com.project.cotafacil.model.client.*;
 import com.project.cotafacil.util.security.BcryptUtil;
 
 import lombok.AllArgsConstructor;
@@ -36,7 +36,7 @@ public class ClientDTO {
 	@Email(message="Email inválido.")
 	private String mail;
 	
-	public User convertDTOToEntity() {
-		return new ModelMapper().map(this, User.class);
+	public Client convertDTOToEntity() {
+		return new ModelMapper().map(this, Client.class);
 	}
 }

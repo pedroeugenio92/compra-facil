@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import org.modelmapper.ModelMapper;
 
 import com.project.cotafacil.enumeration.RoleEnum;
-import com.project.cotafacil.model.dto.user.UserDTO;
+import com.project.cotafacil.model.dto.client.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -68,8 +68,8 @@ public class Client implements Serializable {
 		creationDate = LocalDateTime.now();
     }
 	
-	public UserDTO convertEntityToDTO() {
-		return new ModelMapper().map(this, UserDTO.class);
+	public ClientDTO convertEntityToDTO() {
+		return new ModelMapper().map(this, ClientDTO.class);
 	}
 	
 }

@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.cotafacil.model.dto.response.Response;
-import com.project.cotafacil.model.dto.user.UserDTO;
-import com.project.cotafacil.model.user.User;
-import com.project.cotafacil.service.user.UserService;
+import com.project.cotafacil.model.dto.client.*;
+import com.project.cotafacil.model.client.*;
+import com.project.cotafacil.service.client.*;
 
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/clients")
 public class ClientController {
 	
 	@Autowired
@@ -34,16 +34,16 @@ public class ClientController {
 	
 	@GetMapping
 	@ApiOperation(value = "Rota que busca todos os usuários")
-	public ResponseEntity<Response<List<UserDTO>>> findAll(BindingResult result){
-		Response<List<UserDTO>> response = new Response<>();
+	public ResponseEntity<Response<List<ClientDTO>>> findAll(BindingResult result){
+		Response<List<ClientDTO>> response = new Response<>();
 		
-		List<User> findUsers = service.findAll();
-		List<UserDTO> users = new ArrayList<>();
+		List<Client> findClients = service.findAll();
+		List<ClientDTO> clients = new ArrayList<>();
 		
-		findUsers.stream().forEach(user -> {
-			users.add(user.convertEntityToDTO());
+		findClients.stream().forEach(client -> {
+			clients.add(client.convertEntityToDTO());
 		});
-		response.setData(users);
+		response.setData(clients);
 		
 		
 		return new ResponseEntity<>(response,HttpStatus.OK);
