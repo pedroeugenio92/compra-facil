@@ -46,13 +46,19 @@ public class Client implements Serializable {
 	@Column(name = "senha")
 	private String password;
 	
-
-	@Column(name = "cpf")
-	private String cpf;
+	@Column(name = "cnpj")
+	private String cnpj;
 
 	@Column(name = "telefone")
 	private String phone;
 
+	@Column(name= "razao social")
+	private String socialreason;
+	
+	@Column(name= "cep")
+	private String cep;
+	
+	
 	@Column(name = "ativo")
 	private boolean actived;
 	
