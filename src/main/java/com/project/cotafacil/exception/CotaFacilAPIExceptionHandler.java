@@ -10,13 +10,16 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ServerErrorException;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.project.cotafacil.exception.user.UserMailFoundException;
+import com.project.cotafacil.exception.user.UserFoundException;
+import com.project.cotafacil.exception.user.UserInvalidUpdateException;
 import com.project.cotafacil.model.dto.response.Response;
 
 @ControllerAdvice
 public class CotaFacilAPIExceptionHandler<T> {
 	
 	@ExceptionHandler(value = { CotaFacilInvalidUpdateException.class })
-    protected ResponseEntity<Response<T>> handleTravelInvalidUpdateException(CotaFacilInvalidUpdateException exception) {
+    protected ResponseEntity<Response<T>> handleCotaFacilInvalidUpdateException(CotaFacilInvalidUpdateException exception) {
 		
 		Response<T> response = new Response<>();
 		response.addErrorMsgToResponse(exception.getLocalizedMessage());
@@ -24,14 +27,16 @@ public class CotaFacilAPIExceptionHandler<T> {
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
     }
 	
-	@ExceptionHandler(value = { CotaFacilNotFoundException.class })
-    protected ResponseEntity<Response<T>> handleTravelNotFoundException(CotaFacilNotFoundException exception) {
+	
+	@ExceptionHandler(value = { UserFoundException.class })
+    protected ResponseEntity<Response<T>> handleUserNotFoundException(UserFoundException exception) {
 		
 		Response<T> response = new Response<>();
 		response.addErrorMsgToResponse(exception.getLocalizedMessage());
 		
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
+	
 	
 	@ExceptionHandler(value = { HttpClientErrorException.Conflict.class })
     protected ResponseEntity<Response<T>> handleConflictException(HttpClientErrorException exception) {
@@ -76,6 +81,24 @@ public class CotaFacilAPIExceptionHandler<T> {
 		response.addErrorMsgToResponse(exception.getLocalizedMessage());
 		
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+    }
+	
+	@ExceptionHandler(value = { UserMailFoundException.class })
+    protected ResponseEntity<Response<T>> handleUserMailFound(UserMailFoundException exception) {
+		
+		Response<T> response = new Response<>();
+		response.addErrorMsgToResponse(exception.getLocalizedMessage());
+		
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+    }
+	
+	@ExceptionHandler(value = { UserInvalidUpdateException.class })
+    protected ResponseEntity<Response<T>> handleUserInvalidUpdateException(UserInvalidUpdateException exception) {
+		
+		Response<T> response = new Response<>();
+		response.addErrorMsgToResponse(exception.getLocalizedMessage());
+		
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
     }
 
 }

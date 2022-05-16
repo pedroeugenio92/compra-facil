@@ -35,7 +35,7 @@ public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private int id;
 	
 	@Column(name = "nome")
 	private String name;
@@ -66,6 +66,8 @@ public class User implements Serializable {
 	@PrePersist
     public void prePersist() {
 		creationDate = LocalDateTime.now();
+		actived = true;
+		excluded = false;
     }
 	
 	public UserDTO convertEntityToDTO() {
