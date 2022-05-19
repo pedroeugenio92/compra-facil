@@ -51,7 +51,7 @@ public class UserController {
 	
 	@GetMapping
 	@ApiOperation(value = "Rota que busca todos os usuários ativos")
-	public ResponseEntity<Response<Page<UserDTO>>> findAll( @PageableDefault(page = 0, size = 10, sort = {"id"}) Pageable pageable) throws UserFoundException{
+	public ResponseEntity<Response<Page<UserDTO>>> findAll(@PageableDefault(page = 0, size = 10, sort = {"id"}) Pageable pageable) throws UserFoundException{
 		Response<Page<UserDTO>> response = new Response<>();
 		
 		Page<User> findUsers = service.findByExcludedFalsePageable(pageable);

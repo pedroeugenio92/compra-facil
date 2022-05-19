@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.project.cotafacil.repository.client.*;
 import com.project.cotafacil.model.client.*;
+import com.project.cotafacil.model.user.User;
 import com.project.cotafacil.service.client.*;
 
 @Service
@@ -17,7 +20,7 @@ public class ClientServiceImpl implements ClientService {
 	ClientRepository repository;
 	
 	@Override
-	public Optional<Client> findById(Long id){
+	public Optional<Client> findById(int id){
 		return repository.findById(id);
 	}
 	
@@ -31,9 +34,8 @@ public class ClientServiceImpl implements ClientService {
 		return repository.save(client);
 	}
 	
-	@Override
-	public Optional<Client> findByMail(String mail) {
-		return repository.findByMail(mail);
+	public Page<Client> findByExcludedFalsePageable(Pageable pg){
+		return repository.findByExcludedFalse(pg);
 	}
 
 }

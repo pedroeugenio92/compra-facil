@@ -11,6 +11,7 @@ import org.springframework.web.server.ServerErrorException;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.project.cotafacil.exception.user.UserMailFoundException;
+import com.project.cotafacil.exception.client.ClientNotFoundException;
 import com.project.cotafacil.exception.user.UserFoundException;
 import com.project.cotafacil.exception.user.UserInvalidUpdateException;
 import com.project.cotafacil.model.dto.response.Response;
@@ -36,6 +37,16 @@ public class CotaFacilAPIExceptionHandler<T> {
 		
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
+	
+	@ExceptionHandler(value = { ClientNotFoundException.class })
+    protected ResponseEntity<Response<T>> handleClientNotFoundException(ClientNotFoundException exception) {
+		
+		Response<T> response = new Response<>();
+		response.addErrorMsgToResponse(exception.getLocalizedMessage());
+		
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+	
 	
 	
 	@ExceptionHandler(value = { HttpClientErrorException.Conflict.class })

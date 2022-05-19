@@ -2,7 +2,9 @@ package com.project.cotafacil.model.user;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,12 +12,16 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import org.modelmapper.ModelMapper;
 
 import com.project.cotafacil.enumeration.RoleEnum;
+import com.project.cotafacil.model.client.Client;
 import com.project.cotafacil.model.dto.user.UserDTO;
 
 import lombok.AllArgsConstructor;
