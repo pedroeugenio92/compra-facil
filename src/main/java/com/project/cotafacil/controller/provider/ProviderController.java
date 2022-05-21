@@ -30,6 +30,7 @@ import com.project.cotafacil.service.provider.ProviderService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
 
+
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -54,13 +55,13 @@ public class ProviderController {
 	public ResponseEntity<Response<Page<ProviderDTO>>> findAll( @PageableDefault(page = 0, size = 10, sort = {"id"}) Pageable pageable) throws ProviderFoundException{
 		Response<Page<ProviderDTO>> response = new Response<>();
 		
-		Page<Provider> findUsers = service.findByExcludedFalsePageable(pageable);
+		Page<Provider> findProvider = service.findByExcludedFalsePageable(pageable);
 		
-		if(findUsers.isEmpty()) {
+		if(findProvider.isEmpty()) {
 			throw new ProviderFoundException("Nenhum usuário encontrado!");
 		}
 		
-		Page<ProviderDTO> providers = findUsers.map(u -> u.convertEntityToDTO());
+		Page<ProviderDTO> providers = findProvider.map(u -> u.convertEntityToDTO());
 		
 		response.setData(providers);
 		

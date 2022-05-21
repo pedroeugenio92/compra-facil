@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.Length;
 import org.modelmapper.ModelMapper;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.project.cotafacil.model.user.User;
+import com.project.cotafacil.model.provider.Provider;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,8 +42,8 @@ public class ProviderRequestDTO {
 	@Length(max=11, message="A senha deve conter no máximo 11 caracteres.")
 	private String password;
 	
-	public User convertDTOToEntity() {
-		return new ModelMapper().map(this, User.class);
+	public Provider convertDTOToEntity() {
+		return new ModelMapper().map(this, Provider.class);
 	}
 	
 }
