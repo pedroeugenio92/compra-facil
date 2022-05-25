@@ -42,7 +42,7 @@ public class ClientServiceImpl implements ClientService {
 	}
 	
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public Client save(Client client) throws Exception{
 		Client result = new Client();
 		validadeClient(client);
