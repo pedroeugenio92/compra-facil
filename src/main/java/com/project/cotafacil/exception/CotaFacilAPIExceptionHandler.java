@@ -12,6 +12,8 @@ import org.springframework.web.server.ServerErrorException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.project.cotafacil.exception.user.UserMailFoundException;
 import com.project.cotafacil.exception.client.ClientNotFoundException;
+import com.project.cotafacil.exception.client.ClientAlreadyExistingException;
+import com.project.cotafacil.exception.client.ClientInvalidUpdateException;
 import com.project.cotafacil.exception.user.UserFoundException;
 import com.project.cotafacil.exception.user.UserInvalidUpdateException;
 import com.project.cotafacil.model.dto.response.Response;
@@ -35,7 +37,7 @@ public class CotaFacilAPIExceptionHandler<T> {
 		Response<T> response = new Response<>();
 		response.addErrorMsgToResponse(exception.getLocalizedMessage());
 		
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
 	
 	@ExceptionHandler(value = { ClientNotFoundException.class })
@@ -103,8 +105,26 @@ public class CotaFacilAPIExceptionHandler<T> {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
 	
+	@ExceptionHandler(value = { ClientAlreadyExistingException.class })
+    protected ResponseEntity<Response<T>> handleClientAlreadyExisting(ClientAlreadyExistingException exception) {
+		
+		Response<T> response = new Response<>();
+		response.addErrorMsgToResponse(exception.getLocalizedMessage());
+		
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+    }
+	
 	@ExceptionHandler(value = { UserInvalidUpdateException.class })
     protected ResponseEntity<Response<T>> handleUserInvalidUpdateException(UserInvalidUpdateException exception) {
+		
+		Response<T> response = new Response<>();
+		response.addErrorMsgToResponse(exception.getLocalizedMessage());
+		
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+    }
+	
+	@ExceptionHandler(value = { ClientInvalidUpdateException.class })
+    protected ResponseEntity<Response<T>> handleClientInvalidUpdateException(ClientInvalidUpdateException exception) {
 		
 		Response<T> response = new Response<>();
 		response.addErrorMsgToResponse(exception.getLocalizedMessage());

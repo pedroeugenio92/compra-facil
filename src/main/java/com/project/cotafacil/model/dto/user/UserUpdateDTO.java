@@ -18,7 +18,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserRequestDTO {
+public class UserUpdateDTO {
+	
+	private int id;
 	
 	@NotNull(message = "O nome não pode ser nulo.")
 	@Length(min=3, max=255, message="O nome deve conter entre 3 e 255 caracteres.")

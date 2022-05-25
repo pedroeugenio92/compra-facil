@@ -70,10 +70,8 @@ public class Client implements Serializable {
 	@JoinColumn(name="endereco_id", referencedColumnName = "id")
 	private Address address;
 	
-	@OneToMany
-    @JoinColumn(name="cliente_id", nullable=false)
-	private List<User> users;
-	
+	@OneToMany(mappedBy="client")
+    private List<User> users;
 	
 	@PrePersist
     public void prePersist() {

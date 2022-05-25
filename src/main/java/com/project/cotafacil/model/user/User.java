@@ -67,7 +67,10 @@ public class User implements Serializable {
 
 	@Column(name = "data_criacao")
 	private LocalDateTime creationDate;
-	
+		
+	@ManyToOne
+    @JoinColumn(name="cliente_id", nullable=true)
+	private Client client;
 	
 	@PrePersist
     public void prePersist() {

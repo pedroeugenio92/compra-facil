@@ -25,6 +25,7 @@ import com.project.cotafacil.exception.user.UserInvalidUpdateException;
 import com.project.cotafacil.model.dto.response.Response;
 import com.project.cotafacil.model.dto.user.UserDTO;
 import com.project.cotafacil.model.dto.user.UserRequestDTO;
+import com.project.cotafacil.model.dto.user.UserUpdateDTO;
 import com.project.cotafacil.model.user.User;
 import com.project.cotafacil.service.user.UserService;
 import io.swagger.annotations.ApiOperation;
@@ -41,13 +42,6 @@ public class UserController {
 	
 	@Autowired
 	private UserService service;
-	
-
-	@Autowired
-	public UserController(UserService userService) {
-		this.service = userService;
-	}
-	
 	
 	@GetMapping
 	@ApiOperation(value = "Rota que busca todos os usuários ativos")
@@ -104,22 +98,16 @@ public class UserController {
 	}
 	
 	@PutMapping
-	@ApiOperation(value = "Rota que atua os dados do usuário")
-	public ResponseEntity<Response<UserDTO>> update(@Valid @RequestBody UserRequestDTO userDTO, BindingResult result) throws UserFoundException, UserInvalidUpdateException{
+	@ApiOperation(value = "Rota que atualiza os dados do usuário")
+	public ResponseEntity<Response<UserDTO>> update(@Valid @RequestBody UserUpdateDTO userDTO, BindingResult result) throws UserFoundException, UserInvalidUpdateException{
 		Response<UserDTO> response = new Response<>();
 		
 		if (result.hasErrors()) {
 			result.getAllErrors().forEach(error -> response.addErrorMsgToResponse(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
-		
-		Optional<User> userToFind = service.findById(userDTO.getId());
-		if(!userToFind.isPresent()) {
-			throw new UserInvalidUpdateException("Usuário não encontrado para realizar a atualização. ID:" + userDTO.getId());
-		}
-		
 		User user = userDTO.convertDTOToEntity();
-		User userToUpdate = service.update(user, userToFind.get());
+		User userToUpdate = service.update(user);
 		
 		response.setData(userToUpdate.convertEntityToDTO());
 		
@@ -128,7 +116,7 @@ public class UserController {
 	}
 	
 	@DeleteMapping(value="/{id}")
-	@ApiOperation(value = "Rota que busca um usuário")
+	@ApiOperation(value = "Rota que deleta um usuário")
 	public ResponseEntity<Response<String>> delete(@PathVariable Integer id) throws UserFoundException{
 		Response<String> response = new Response<>();
 		
@@ -138,7 +126,6 @@ public class UserController {
 		}
 		
 		User userEntity = user.get();	
-		
 		service.delete(userEntity);
 		
 		response.setData("Usuário deletado com sucesso!");

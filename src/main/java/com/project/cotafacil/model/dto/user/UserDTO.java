@@ -1,6 +1,4 @@
 package com.project.cotafacil.model.dto.user;
-
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
