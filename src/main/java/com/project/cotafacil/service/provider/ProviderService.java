@@ -6,7 +6,8 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.project.cotafacil.exception.user.UserFoundException;
+import com.project.cotafacil.exception.provider.ProviderAlreadyExistingException;
+
 import com.project.cotafacil.model.provider.*;
 
 public interface ProviderService {
@@ -15,11 +16,9 @@ public interface ProviderService {
 
 	List<Provider> findAll();
 
-	Provider save(Provider provider) throws UserFoundException;
+	Provider save(Provider provider) throws Exception;
 	
 	Provider update(Provider provider, Provider providerFind);
-
-	Optional<Provider> findByMail(String mail);
 	
 	Page<Provider> findByExcludedFalsePageable(Pageable pg);
 	

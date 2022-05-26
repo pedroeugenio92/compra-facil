@@ -95,10 +95,10 @@ public class ProviderController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		Provider provider  = providerDTO.convertDTOToEntity();
-		Provider providerToCreate = service.save(provider);
+		//Provider provider  = providerDTO.convertDTOToEntity();
+	    //Provider providerToCreate = service.save(provider);
 		
-		response.setData(providerToCreate.convertEntityToDTO());
+		//response.setData(providerToCreate.convertEntityToDTO());
 		
 		
 		return new ResponseEntity<>(response,HttpStatus.OK);
