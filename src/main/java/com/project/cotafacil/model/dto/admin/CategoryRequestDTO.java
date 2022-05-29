@@ -1,5 +1,4 @@
-package com.project.cotafacil.model.dto.provider;
-
+package com.project.cotafacil.model.dto.admin;
 
 import javax.validation.constraints.NotNull;
 
@@ -7,7 +6,7 @@ import org.hibernate.validator.constraints.Length;
 import org.modelmapper.ModelMapper;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.project.cotafacil.model.provider.*;
+import com.project.cotafacil.model.user.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,9 +18,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProviderDTO {
-	
-	private Long id;
+public class CategoryRequestDTO {
 	
 	@NotNull(message = "O nome não pode ser nulo.")
 	@Length(min=3, max=255, message="O nome deve conter entre 3 e 255 caracteres.")
@@ -39,7 +36,12 @@ public class ProviderDTO {
 	@Length(max=11, message="O telefone deve conter no máximo 11 caracteres.")
 	private String phone;
 	
-	public Provider convertDTOToEntity() {
-		return new ModelMapper().map(this, Provider.class);
+	@NotNull(message = "A senha não pode ser nulo.")
+	@Length(max=11, message="A senha deve conter no máximo 11 caracteres.")
+	private String password;
+	
+	public User convertDTOToEntity() {
+		return new ModelMapper().map(this, User.class);
 	}
+	
 }

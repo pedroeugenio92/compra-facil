@@ -1,8 +1,6 @@
 package com.project.cotafacil.controller.provider;
 
-import java.util.ArrayList;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,14 +26,14 @@ import com.project.cotafacil.model.dto.provider.ProviderRequestDTO;
 import com.project.cotafacil.model.provider.Provider;
 import com.project.cotafacil.service.provider.ProviderService;
 import io.swagger.annotations.ApiOperation;
-import lombok.extern.log4j.Log4j2;
+
 
 
 import java.util.Optional;
 
 import javax.validation.Valid;
 
-@Log4j2
+
 @RestController
 @RequestMapping("/api/providers")
 public class ProviderController {

@@ -1,13 +1,11 @@
-package com.project.cotafacil.model.dto.provider;
-
-
+package com.project.cotafacil.model.dto.admin;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.modelmapper.ModelMapper;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.project.cotafacil.model.provider.*;
+import com.project.cotafacil.model.user.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProviderDTO {
+public class CategoryDTO {
 	
 	private Long id;
 	
@@ -39,7 +37,7 @@ public class ProviderDTO {
 	@Length(max=11, message="O telefone deve conter no máximo 11 caracteres.")
 	private String phone;
 	
-	public Provider convertDTOToEntity() {
-		return new ModelMapper().map(this, Provider.class);
+	public User convertDTOToEntity() {
+		return new ModelMapper().map(this, User.class);
 	}
 }
