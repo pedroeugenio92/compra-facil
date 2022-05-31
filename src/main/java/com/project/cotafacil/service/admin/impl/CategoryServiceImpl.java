@@ -18,7 +18,7 @@ import com.project.cotafacil.model.user.User;
 import com.project.cotafacil.service.user.UserService;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class CategoryServiceImpl implements UserService {
 	
 	@Autowired
 	UserRepository repository;

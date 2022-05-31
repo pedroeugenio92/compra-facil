@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import org.modelmapper.ModelMapper;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.project.cotafacil.model.admin.Category;
 import com.project.cotafacil.model.user.User;
 
 import lombok.AllArgsConstructor;
@@ -23,21 +24,14 @@ public class CategoryDTO {
 	
 	@NotNull(message = "O nome não pode ser nulo.")
 	@Length(min=3, max=255, message="O nome deve conter entre 3 e 255 caracteres.")
-	private String name;
+	private String descriscao;
 	
 	@NotNull(message = "O email não pode ser nulo.")
 	@Length(max=255, message="O email deve conter no máximo 255 caracteres.")
-	private String mail;
+	private String solicitacao;
 	
-	@NotNull(message = "O cpf não pode ser nulo.")
-	@Length(max=11, message="O cpf deve conter no máximo 11 caracteres.")
-	private String cpf;
 	
-	@NotNull(message = "O telefone não pode ser nulo.")
-	@Length(max=11, message="O telefone deve conter no máximo 11 caracteres.")
-	private String phone;
-	
-	public User convertDTOToEntity() {
-		return new ModelMapper().map(this, User.class);
+	public Category convertDTOToEntity() {
+		return new ModelMapper().map(this, Category.class);
 	}
 }

@@ -6,25 +6,26 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.project.cotafacil.exception.user.UserFoundException;
-import com.project.cotafacil.exception.user.UserInvalidUpdateException;
-import com.project.cotafacil.model.user.User;
+import com.project.cotafacil.exception.admin.CategoryFoundException;
+import com.project.cotafacil.exception.admin.CategoryInvalidUpdateException;
+import com.project.cotafacil.model.admin.Category;;
 
 public interface CategoryService {
 	
-	Optional<User> findById(int id);
+	Optional<Category> findById(int id);
 
-	List<User> findAll();
+	List<Category> findAll();
 
-	User save(User user) throws UserFoundException;
+	Category save(Category category) throws CategoryFoundException;
 	
-	User update(User user) throws UserInvalidUpdateException;
+	Category update(Category category) throws CategoryInvalidUpdateException;
 
-	Optional<User> findByMail(String mail);
 	
-	Page<User> findByExcludedFalsePageable(Pageable pg);
 	
-	void delete(User user);
+	Page<Category> findByExcludedFalsePageable(Pageable pg);
+	
+	void delete(Category category); 
+	
 	
 	
 }

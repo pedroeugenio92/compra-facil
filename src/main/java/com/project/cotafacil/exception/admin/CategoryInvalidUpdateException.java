@@ -1,18 +1,18 @@
 package com.project.cotafacil.exception.admin;
 
-public class UserInvalidUpdateException extends Exception {
+public class CategoryInvalidUpdateException extends Exception {
 	
 	private static final long serialVersionUID = 5742484280918634409L;
 
-	public UserInvalidUpdateException(){
+	public CategoryInvalidUpdateException(){
 		super();
 	}
 	
-	public UserInvalidUpdateException(String msg){
+	public CategoryInvalidUpdateException(String msg){
 		super(msg);
 	}
 	
-	public UserInvalidUpdateException(String msg, Throwable cause){
+	public CategoryInvalidUpdateException(String msg, Throwable cause){
 		super(msg, cause);
 	}
 }

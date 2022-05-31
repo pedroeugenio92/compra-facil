@@ -20,8 +20,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.cotafacil.exception.admin.CategoryFoundException;
 import com.project.cotafacil.exception.user.UserFoundException;
 import com.project.cotafacil.exception.user.UserInvalidUpdateException;
+import com.project.cotafacil.model.admin.Category;
+import com.project.cotafacil.model.dto.admin.CategoryDTO;
 import com.project.cotafacil.model.dto.response.Response;
 import com.project.cotafacil.model.dto.user.UserDTO;
 import com.project.cotafacil.model.dto.user.UserRequestDTO;
@@ -45,18 +48,18 @@ public class CategoryController {
 	
 	@GetMapping
 	@ApiOperation(value = "Rota que busca todos os usuários ativos")
-	public ResponseEntity<Response<Page<UserDTO>>> findAll(@PageableDefault(page = 0, size = 10, sort = {"id"}) Pageable pageable) throws UserFoundException{
-		Response<Page<UserDTO>> response = new Response<>();
+	public ResponseEntity<Response<Page<CategoryDTO>>> findAll(@PageableDefault(page = 0, size = 10, sort = {"id"}) Pageable pageable) throws CategoryFoundException{
+		Response<Page<CategoryDTO>> response = new Response<>();
 		
-		Page<User> findUsers = service.findByExcludedFalsePageable(pageable);
+		Page<Category> findCategory = service.findByExcludedFalsePageable(pageable);
 		
-		if(findUsers.isEmpty()) {
+		if(findCategory.isEmpty()) {
 			throw new UserFoundException("Nenhum usuário encontrado!");
 		}
 		
-		Page<UserDTO> users = findUsers.map(u -> u.convertEntityToDTO());
+		Page<CategoryDTO> categorys = findCategory.map(u -> u.convertEntityToDTO());
 		
-		response.setData(users);
+		response.setData(categorys);
 		
 		
 		return new ResponseEntity<>(response,HttpStatus.OK);
@@ -64,34 +67,34 @@ public class CategoryController {
 	
 	@GetMapping(value="/{id}")
 	@ApiOperation(value = "Rota que busca um usuário")
-	public ResponseEntity<Response<UserDTO>> findById(@PathVariable Integer id) throws UserFoundException{
-		Response<UserDTO> response = new Response<>();
+	public ResponseEntity<ResponseCategoryDTO>> findById(@PathVariable Integer id) throws CategoryFoundException{
+		Response<CategoryDTO> response = new Response<>();
 		
-		Optional<User> user = service.findById(id);
-		if(user.isEmpty()) {
-			throw new UserFoundException("Usuário não encontrado");
+		Optional<Category> category = service.findById(id);
+		if(Category.isEmpty()) {
+			throw new CategoryFoundException("Categoria não encontrado");
 		}
 		
-		User userEntity = user.get();	
-		response.setData(userEntity.convertEntityToDTO());
+		Category categoryEntity = category.get();	
+		response.setData(categoryEntity.convertEntityToDTO());
 		
 		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
 	
 	@PostMapping
 	@ApiOperation(value = "Rota que cria um novo usuário")
-	public ResponseEntity<Response<UserDTO>> create(@Valid @RequestBody UserRequestDTO userDTO, BindingResult result) throws UserFoundException{
-		Response<UserDTO> response = new Response<>();
+	public ResponseEntity<Response<CategoryDTO>> create(@Valid @RequestBody CategoryRequestDTO userDTO, BindingResult result) throws CategoryFoundException{
+		Response<CategoryDTO> response = new Response<>();
 		
 		if (result.hasErrors()) {
 			result.getAllErrors().forEach(error -> response.addErrorMsgToResponse(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		User user = userDTO.convertDTOToEntity();
-		User userToCreate = service.save(user);
+		Category category = categoryDTO.convertDTOToEntity();
+		Category categoryToCreate = service.save(category);
 		
-		response.setData(userToCreate.convertEntityToDTO());
+		response.setData(categoryToCreate.convertEntityToDTO());
 		
 		
 		return new ResponseEntity<>(response,HttpStatus.OK);
@@ -99,17 +102,17 @@ public class CategoryController {
 	
 	@PutMapping
 	@ApiOperation(value = "Rota que atualiza os dados do usuário")
-	public ResponseEntity<Response<UserDTO>> update(@Valid @RequestBody UserUpdateDTO userDTO, BindingResult result) throws UserFoundException, UserInvalidUpdateException{
-		Response<UserDTO> response = new Response<>();
+	public ResponseEntity<Response<CategoryDTO>> update(@Valid @RequestBody UserUpdateDTO userDTO, BindingResult result) throws UserFoundException, UserInvalidUpdateException{
+		Response<CategoryDTO> response = new Response<>();
 		
 		if (result.hasErrors()) {
 			result.getAllErrors().forEach(error -> response.addErrorMsgToResponse(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
-		User user = userDTO.convertDTOToEntity();
-		User userToUpdate = service.update(user);
+		Category category = categoryDTO.convertDTOToEntity();
+		Category categoryToUpdate = service.update(category);
 		
-		response.setData(userToUpdate.convertEntityToDTO());
+		response.setData(categoryToUpdate.convertEntityToDTO());
 		
 		
 		return new ResponseEntity<>(response,HttpStatus.OK);
@@ -120,13 +123,13 @@ public class CategoryController {
 	public ResponseEntity<Response<String>> delete(@PathVariable Integer id) throws UserFoundException{
 		Response<String> response = new Response<>();
 		
-		Optional<User> user = service.findById(id);
-		if(user.isEmpty()) {
+		Optional<Category> category = service.findById(id);
+		if(category.isEmpty()) {
 			throw new UserFoundException("Usuário não encontrado");
 		}
 		
-		User userEntity = user.get();	
-		service.delete(userEntity);
+		Category categoryEntity = category.get();	
+		service.delete(categoryEntity);
 		
 		response.setData("Usuário deletado com sucesso!");
 		

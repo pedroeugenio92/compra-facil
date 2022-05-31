@@ -1,19 +1,19 @@
 package com.project.cotafacil.exception.admin;
 
-public class UserFoundException extends Exception {
+public class CategoryFoundException extends Exception {
 	
 	
 	private static final long serialVersionUID = 1925990820236846068L;
 
-	public UserFoundException(){
+	public CategoryFoundException(){
 		super();
 	}
 	
-	public UserFoundException(String msg){
+	public CategoryFoundException(String msg){
 		super(msg);
 	}
 	
-	public UserFoundException(String msg, Throwable cause){
+	public CategoryFoundException(String msg, Throwable cause){
 		super(msg, cause);
 	}
 }

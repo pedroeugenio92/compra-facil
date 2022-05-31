@@ -11,6 +11,7 @@ import org.springframework.web.server.ServerErrorException;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.project.cotafacil.exception.user.UserMailFoundException;
+import com.project.cotafacil.exception.admin.CategoryFoundException;
 import com.project.cotafacil.exception.client.ClientNotFoundException;
 import com.project.cotafacil.exception.provider.ProviderFoundException;
 import com.project.cotafacil.exception.client.ClientAlreadyExistingException;

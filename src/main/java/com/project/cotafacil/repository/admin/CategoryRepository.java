@@ -6,13 +6,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.project.cotafacil.model.user.User;
+import com.project.cotafacil.model.admin.Category;
 
-public interface CategoryRepository extends JpaRepository<User, Integer> {
+
+public interface CategoryRepository extends JpaRepository<Category, Integer> {
 	
-	Optional<User> findByMail(String email);
+	Optional<Category> findByDescriscao(String descriscao);
 	
-	Optional<User> findByCpf(String cpf);
+	Optional<Category> findBySolicitacao(String solitacao);
 	
-	Page<User> findByExcludedFalse(Pageable pg);
+	Page<Category> findByExcludedFalse(Pageable pg);
 }
