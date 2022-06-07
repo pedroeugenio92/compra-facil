@@ -6,7 +6,7 @@ import org.modelmapper.ModelMapper;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.project.cotafacil.model.admin.Category;
-import com.project.cotafacil.model.user.User;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

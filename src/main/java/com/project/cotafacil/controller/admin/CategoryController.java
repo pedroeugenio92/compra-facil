@@ -21,16 +21,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.cotafacil.exception.admin.CategoryFoundException;
-import com.project.cotafacil.exception.user.UserFoundException;
-import com.project.cotafacil.exception.user.UserInvalidUpdateException;
+import com.project.cotafacil.exception.admin.CategoryInvalidUpdateException;
 import com.project.cotafacil.model.admin.Category;
 import com.project.cotafacil.model.dto.admin.CategoryDTO;
 import com.project.cotafacil.model.dto.response.Response;
-import com.project.cotafacil.model.dto.user.UserDTO;
-import com.project.cotafacil.model.dto.user.UserRequestDTO;
-import com.project.cotafacil.model.dto.user.UserUpdateDTO;
-import com.project.cotafacil.model.user.User;
-import com.project.cotafacil.service.user.UserService;
+import com.project.cotafacil.model.dto.admin.CategoryRequestDTO;
+import com.project.cotafacil.model.dto.admin.CategoryUpdateDTO;
+import com.project.cotafacil.service.admin.CategoryService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
 
@@ -44,17 +41,17 @@ import javax.validation.Valid;
 public class CategoryController {
 	
 	@Autowired
-	private UserService service;
+	private CategoryService service;
 	
 	@GetMapping
-	@ApiOperation(value = "Rota que busca todos os usuários ativos")
+	@ApiOperation(value = "Rota que busca todos os categoria ativos")
 	public ResponseEntity<Response<Page<CategoryDTO>>> findAll(@PageableDefault(page = 0, size = 10, sort = {"id"}) Pageable pageable) throws CategoryFoundException{
 		Response<Page<CategoryDTO>> response = new Response<>();
 		
 		Page<Category> findCategory = service.findByExcludedFalsePageable(pageable);
 		
 		if(findCategory.isEmpty()) {
-			throw new UserFoundException("Nenhum usuário encontrado!");
+			throw new CategoryFoundException("Nenhum usuário encontrado!");
 		}
 		
 		Page<CategoryDTO> categorys = findCategory.map(u -> u.convertEntityToDTO());
@@ -66,7 +63,7 @@ public class CategoryController {
 	}
 	
 	@GetMapping(value="/{id}")
-	@ApiOperation(value = "Rota que busca um usuário")
+	@ApiOperation(value = "Rota que busca uma Categoria")
 	public ResponseEntity<ResponseCategoryDTO>> findById(@PathVariable Integer id) throws CategoryFoundException{
 		Response<CategoryDTO> response = new Response<>();
 		
@@ -83,7 +80,7 @@ public class CategoryController {
 	
 	@PostMapping
 	@ApiOperation(value = "Rota que cria um novo usuário")
-	public ResponseEntity<Response<CategoryDTO>> create(@Valid @RequestBody CategoryRequestDTO userDTO, BindingResult result) throws CategoryFoundException{
+	public ResponseEntity<Response<CategoryDTO>> create(@Valid @RequestBody CategoryRequestDTO categoryDTO, BindingResult result) throws CategoryFoundException{
 		Response<CategoryDTO> response = new Response<>();
 		
 		if (result.hasErrors()) {
@@ -102,7 +99,7 @@ public class CategoryController {
 	
 	@PutMapping
 	@ApiOperation(value = "Rota que atualiza os dados do usuário")
-	public ResponseEntity<Response<CategoryDTO>> update(@Valid @RequestBody UserUpdateDTO userDTO, BindingResult result) throws UserFoundException, UserInvalidUpdateException{
+	public ResponseEntity<Response<CategoryDTO>> update(@Valid @RequestBody CategoryUpdateDTO categoryDTO, BindingResult result) throws CategoryInvalidUpdateException, CategoryFoundException{
 		Response<CategoryDTO> response = new Response<>();
 		
 		if (result.hasErrors()) {
@@ -120,18 +117,18 @@ public class CategoryController {
 	
 	@DeleteMapping(value="/{id}")
 	@ApiOperation(value = "Rota que deleta um usuário")
-	public ResponseEntity<Response<String>> delete(@PathVariable Integer id) throws UserFoundException{
+	public ResponseEntity<Response<String>> delete(@PathVariable Integer id) throws CategoryFoundException{
 		Response<String> response = new Response<>();
 		
 		Optional<Category> category = service.findById(id);
 		if(category.isEmpty()) {
-			throw new UserFoundException("Usuário não encontrado");
+			throw new CategoryFoundException("Categoria não encontrado");
 		}
 		
 		Category categoryEntity = category.get();	
 		service.delete(categoryEntity);
 		
-		response.setData("Usuário deletado com sucesso!");
+		response.setData("Categoria deletado com sucesso!");
 		
 		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
