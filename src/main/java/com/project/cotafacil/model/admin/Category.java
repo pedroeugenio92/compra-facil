@@ -23,6 +23,7 @@ import org.modelmapper.ModelMapper;
 
 import com.project.cotafacil.model.address.Address;
 import com.project.cotafacil.model.client.Client;
+import com.project.cotafacil.model.dto.admin.CategoryDTO;
 import com.project.cotafacil.model.dto.provider.ProviderDTO;
 
 import com.project.cotafacil.model.provider.Provider;
@@ -38,7 +39,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "usuario")
+@Table(name = "categoria")
 public class Category implements Serializable {
 	
 	private static final long serialVersionUID = -8553864086130686408L;
@@ -48,7 +49,7 @@ public class Category implements Serializable {
 	private int id;
 
 	@Column(name = "descricao")
-	private String name;
+	private String descriscao;
 	
 	@Column(name = "solicitacao")
 	private boolean request;
@@ -75,8 +76,8 @@ public class Category implements Serializable {
 	@JoinColumn(name="endereco_id", referencedColumnName = "id")
 	private Address address;
 	
-	@OneToMany(mappedBy="category")
-    private List<User> users;
+	/*@OneToMany(mappedBy="category")
+    private List<User> users;*/
 	
 
 		
@@ -87,8 +88,8 @@ public class Category implements Serializable {
 		excluded = false;
     }
 	
-	public ProviderDTO convertEntityToDTO() {
-		return new ModelMapper().map(this, ProviderDTO.class);
+	public CategoryDTO convertEntityToDTO() {
+		return new ModelMapper().map(this, CategoryDTO.class);
 	}
 	
 }

@@ -12,11 +12,14 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.cotafacil.repository.admin.CategoryRepository;
+import com.project.cotafacil.exception.admin.CategoryAlreadyExistingException;
 import com.project.cotafacil.exception.admin.CategoryFoundException;
 import com.project.cotafacil.exception.admin.CategoryInvalidUpdateException;
+import com.project.cotafacil.exception.provider.ProviderAlreadyExistingException;
 import com.project.cotafacil.exception.user.UserFoundException;
 import com.project.cotafacil.exception.user.UserInvalidUpdateException;
 import com.project.cotafacil.model.admin.Category;
+import com.project.cotafacil.model.provider.Provider;
 import com.project.cotafacil.service.admin.CategoryService;
 
 @Service
@@ -57,16 +60,7 @@ public class CategoryServiceImpl implements CategoryService {
 		repository.save(category);
 	}
 	
-	
-	
-	private Category findCategory(int id) throws CategoryInvalidUpdateException {
-		Optional<Category> category = findById(id);
-		if(category.isEmpty()) {
-			throw new CategoryServiceImpl("Categoria não encontrado para realizar a atualização. ID:" + id);
-		}
-		return category.get();
-	}
-	
+
 	
 	
 	

@@ -64,10 +64,11 @@ public class CategoryController {
 	
 	@GetMapping(value="/{id}")
 	@ApiOperation(value = "Rota que busca uma Categoria")
-	public ResponseEntity<ResponseCategoryDTO>> findById(@PathVariable Integer id) throws CategoryFoundException{
+	public ResponseEntity<Response<CategoryDTO>> findById(@PathVariable Integer id) throws CategoryFoundException{
 		Response<CategoryDTO> response = new Response<>();
 		
 		Optional<Category> category = service.findById(id);
+		
 		if(Category.isEmpty()) {
 			throw new CategoryFoundException("Categoria não encontrado");
 		}
@@ -79,7 +80,7 @@ public class CategoryController {
 	}
 	
 	@PostMapping
-	@ApiOperation(value = "Rota que cria um novo usuário")
+	@ApiOperation(value = "Rota que cria um novo categoria")
 	public ResponseEntity<Response<CategoryDTO>> create(@Valid @RequestBody CategoryRequestDTO categoryDTO, BindingResult result) throws CategoryFoundException{
 		Response<CategoryDTO> response = new Response<>();
 		
@@ -98,7 +99,7 @@ public class CategoryController {
 	}
 	
 	@PutMapping
-	@ApiOperation(value = "Rota que atualiza os dados do usuário")
+	@ApiOperation(value = "Rota que atualiza os dados do categoria")
 	public ResponseEntity<Response<CategoryDTO>> update(@Valid @RequestBody CategoryUpdateDTO categoryDTO, BindingResult result) throws CategoryInvalidUpdateException, CategoryFoundException{
 		Response<CategoryDTO> response = new Response<>();
 		
@@ -116,7 +117,7 @@ public class CategoryController {
 	}
 	
 	@DeleteMapping(value="/{id}")
-	@ApiOperation(value = "Rota que deleta um usuário")
+	@ApiOperation(value = "Rota que deleta um categoria")
 	public ResponseEntity<Response<String>> delete(@PathVariable Integer id) throws CategoryFoundException{
 		Response<String> response = new Response<>();
 		
