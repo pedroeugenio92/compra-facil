@@ -23,6 +23,7 @@ import org.modelmapper.ModelMapper;
 import com.project.cotafacil.enumeration.RoleEnum;
 import com.project.cotafacil.model.client.Client;
 import com.project.cotafacil.model.dto.user.UserDTO;
+import com.project.cotafacil.model.provider.Provider;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -71,6 +72,11 @@ public class User implements Serializable {
 	@ManyToOne
     @JoinColumn(name="cliente_id", nullable=true)
 	private Client client;
+	
+	@ManyToOne
+    @JoinColumn(name="fornecedor_id", nullable=true)
+	private Provider provider;
+	
 	
 	@PrePersist
     public void prePersist() {
