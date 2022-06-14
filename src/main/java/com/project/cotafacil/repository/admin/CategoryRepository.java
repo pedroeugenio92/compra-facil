@@ -11,9 +11,9 @@ import com.project.cotafacil.model.admin.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
 	
-	Optional<Category> findByDescriscao(String descriscao);
+	Optional<Category> findByDescription(String descriscao);
 	
-	Optional<Category> findBySolicitacao(String solitacao);
+	Optional<Category> findByRequest(String solitacao);
 	
 	Page<Category> findByExcludedFalse(Pageable pg);
 }

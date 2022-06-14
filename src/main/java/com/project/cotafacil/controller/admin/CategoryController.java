@@ -69,7 +69,7 @@ public class CategoryController {
 		
 		Optional<Category> category = service.findById(id);
 		
-		if(Category.isEmpty()) {
+		if(category.isEmpty()) {
 			throw new CategoryFoundException("Categoria não encontrado");
 		}
 		

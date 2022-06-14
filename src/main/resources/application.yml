@@ -5,7 +5,7 @@ spring:
     name: CotaFacil Java API
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://faucldade-comprafacil.mysql.database.azure.com:3306/comprafacil
+    url: jdbc:mysql://faucldade-comprafacil.mysql.database.azure.com:3306/compra_prod
     username: comprafacil
     password: Pratica123
   jpa:
