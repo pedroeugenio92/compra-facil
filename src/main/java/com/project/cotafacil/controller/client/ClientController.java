@@ -34,6 +34,7 @@ import com.project.cotafacil.model.user.User;
 import com.project.cotafacil.service.client.ClientService;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 
 @RestController
 @RequestMapping("/api/clients")
@@ -43,7 +44,7 @@ public class ClientController {
 	private ClientService service;
 	
 	@GetMapping
-	@ApiOperation(value = "Rota que busca todos os usuários")
+	@ApiOperation(value = "Rota que busca todos os usuários", authorizations = { @Authorization(value="jwtToken") })
 	public ResponseEntity<Response<Page<ClientDTO>>> findAll(@PageableDefault(page = 0, size = 10, sort = {"id"}) Pageable pageable) throws ClientNotFoundException{
 		Response<Page<ClientDTO>> response = new Response<>();
 		
@@ -61,7 +62,7 @@ public class ClientController {
 	}
 	
 	@GetMapping(value="/{id}")
-	@ApiOperation(value = "Rota que busca um Cliente")
+	@ApiOperation(value = "Rota que busca um Cliente", authorizations = { @Authorization(value="jwtToken") })
 	public ResponseEntity<Response<ClientDTO>> findById(@PathVariable Integer id) throws ClientNotFoundException{
 		Response<ClientDTO> response = new Response<>();
 		
@@ -77,7 +78,7 @@ public class ClientController {
 	}
 	
 	@PostMapping
-	@ApiOperation(value = "Rota que cria um novo Cliente")
+	@ApiOperation(value = "Rota que cria um novo Cliente", authorizations = { @Authorization(value="jwtToken") })
 	public ResponseEntity<Response<ClientDTO>> create(@Valid @RequestBody ClientRequestDTO clientDTO, BindingResult result) throws Exception{
 		Response<ClientDTO> response = new Response<>();
 		
@@ -97,7 +98,7 @@ public class ClientController {
 	}
 	
 	@PutMapping
-	@ApiOperation(value = "Rota que atualiza os dados do cliente")
+	@ApiOperation(value = "Rota que atualiza os dados do cliente", authorizations = { @Authorization(value="jwtToken") })
 	public ResponseEntity<Response<ClientDTO>> update(@Valid @RequestBody ClientRequestDTO clientDTO, BindingResult result) throws ClientInvalidUpdateException{
 		Response<ClientDTO> response = new Response<>();
 		
@@ -115,7 +116,7 @@ public class ClientController {
 	}
 	
 	@DeleteMapping(value="/{id}")
-	@ApiOperation(value = "Rota que deleta um Cliente")
+	@ApiOperation(value = "Rota que deleta um Cliente", authorizations = { @Authorization(value="jwtToken") })
 	public ResponseEntity<Response<String>> delete(@PathVariable Integer id) throws ClientNotFoundException{
 		Response<String> response = new Response<>();
 		

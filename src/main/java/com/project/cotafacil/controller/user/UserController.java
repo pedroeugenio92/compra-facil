@@ -29,6 +29,7 @@ import com.project.cotafacil.model.dto.user.UserUpdateDTO;
 import com.project.cotafacil.model.user.User;
 import com.project.cotafacil.service.user.UserService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.Optional;
@@ -44,7 +45,7 @@ public class UserController {
 	private UserService service;
 	
 	@GetMapping
-	@ApiOperation(value = "Rota que busca todos os usuários ativos")
+	@ApiOperation(value = "Rota que busca todos os usuários ativos", authorizations = { @Authorization(value="jwtToken") })
 	public ResponseEntity<Response<Page<UserDTO>>> findAll(@PageableDefault(page = 0, size = 10, sort = {"id"}) Pageable pageable) throws UserFoundException{
 		Response<Page<UserDTO>> response = new Response<>();
 		
@@ -63,7 +64,7 @@ public class UserController {
 	}
 	
 	@GetMapping(value="/{id}")
-	@ApiOperation(value = "Rota que busca um usuário")
+	@ApiOperation(value = "Rota que busca um usuário", authorizations = { @Authorization(value="jwtToken") })
 	public ResponseEntity<Response<UserDTO>> findById(@PathVariable Integer id) throws UserFoundException{
 		Response<UserDTO> response = new Response<>();
 		
@@ -79,7 +80,7 @@ public class UserController {
 	}
 	
 	@PostMapping
-	@ApiOperation(value = "Rota que cria um novo usuário")
+	@ApiOperation(value = "Rota que cria um novo usuário", authorizations = { @Authorization(value="jwtToken") })
 	public ResponseEntity<Response<UserDTO>> create(@Valid @RequestBody UserRequestDTO userDTO, BindingResult result) throws UserFoundException{
 		Response<UserDTO> response = new Response<>();
 		
@@ -98,7 +99,7 @@ public class UserController {
 	}
 	
 	@PutMapping
-	@ApiOperation(value = "Rota que atualiza os dados do usuário")
+	@ApiOperation(value = "Rota que atualiza os dados do usuário", authorizations = { @Authorization(value="jwtToken") })
 	public ResponseEntity<Response<UserDTO>> update(@Valid @RequestBody UserUpdateDTO userDTO, BindingResult result) throws UserFoundException, UserInvalidUpdateException{
 		Response<UserDTO> response = new Response<>();
 		
@@ -116,7 +117,7 @@ public class UserController {
 	}
 	
 	@DeleteMapping(value="/{id}")
-	@ApiOperation(value = "Rota que deleta um usuário")
+	@ApiOperation(value = "Rota que deleta um usuário", authorizations = { @Authorization(value="jwtToken") })
 	public ResponseEntity<Response<String>> delete(@PathVariable Integer id) throws UserFoundException{
 		Response<String> response = new Response<>();
 		
