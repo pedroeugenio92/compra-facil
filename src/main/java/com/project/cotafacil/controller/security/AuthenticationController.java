@@ -7,7 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVersion;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +38,7 @@ public class AuthenticationController {
 		
 		Response<TokenDTO> response = new Response<>();
 		
-		//BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		//BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(BCryptVersion.$2A);
 		//System.out.println("crip 123456 "+encoder.encode("123456"));
 		
 		if (result.hasErrors()) {
@@ -47,6 +50,16 @@ public class AuthenticationController {
 		
 		
 		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/senha/{password}")
+	@ApiOperation("Rota retornar hash de senha")
+	public ResponseEntity<String> generatePassword(@PathVariable String password) throws AuthenticationException {
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(BCryptVersion.$2A);
+		//System.out.println("crip 123456 "+encoder.encode("123456"));		
+		
+		return new ResponseEntity<>(encoder.encode(password), HttpStatus.OK);
 	}
 
 }

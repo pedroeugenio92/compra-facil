@@ -19,8 +19,6 @@ public interface CategoryService {
 	Category save(Category category) throws CategoryFoundException;
 	
 	Category update(Category category) throws CategoryInvalidUpdateException;
-
-	
 	
 	Page<Category> findByExcludedFalsePageable(Pageable pg);
 	

@@ -49,7 +49,7 @@ public class Category implements Serializable {
 	private int id;
 
 	@Column(name = "descricao")
-	private String descriscao;
+	private String description;
 	
 	@Column(name = "solicitacao")
 	private boolean request;
@@ -59,32 +59,10 @@ public class Category implements Serializable {
 
 	@Column(name = "data_criacao")
 	private LocalDateTime creationDate;
-	
-	@Column(name = "ativo")
-	private boolean actived;
-	
-	@ManyToOne
-    @JoinColumn(name="cliente_id", nullable=true)
-	private Client client;
-	
-	@ManyToOne
-    @JoinColumn(name="fornecedor_id", nullable=true)
-	private Provider provider;
-	
-	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="endereco_id", referencedColumnName = "id")
-	private Address address;
-	
-	/*@OneToMany(mappedBy="category")
-    private List<User> users;*/
-	
-
 		
 	@PrePersist
     public void prePersist() {
 		creationDate = LocalDateTime.now();
-		actived = true;
 		excluded = false;
     }
 	

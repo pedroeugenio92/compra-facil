@@ -29,6 +29,7 @@ import com.project.cotafacil.model.dto.admin.CategoryRequestDTO;
 import com.project.cotafacil.model.dto.admin.CategoryUpdateDTO;
 import com.project.cotafacil.service.admin.CategoryService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.Optional;
@@ -44,14 +45,14 @@ public class CategoryController {
 	private CategoryService service;
 	
 	@GetMapping
-	@ApiOperation(value = "Rota que busca todos os categoria ativos")
+	@ApiOperation(value = "Rota que busca todos os categoria ativos", authorizations = { @Authorization(value="jwtToken") })
 	public ResponseEntity<Response<Page<CategoryDTO>>> findAll(@PageableDefault(page = 0, size = 10, sort = {"id"}) Pageable pageable) throws CategoryFoundException{
 		Response<Page<CategoryDTO>> response = new Response<>();
 		
 		Page<Category> findCategory = service.findByExcludedFalsePageable(pageable);
 		
 		if(findCategory.isEmpty()) {
-			throw new CategoryFoundException("Nenhum usuário encontrado!");
+			throw new CategoryFoundException("Nenhuma categoria encontrada!");
 		}
 		
 		Page<CategoryDTO> categorys = findCategory.map(u -> u.convertEntityToDTO());
@@ -63,13 +64,13 @@ public class CategoryController {
 	}
 	
 	@GetMapping(value="/{id}")
-	@ApiOperation(value = "Rota que busca uma Categoria")
+	@ApiOperation(value = "Rota que busca uma Categoria", authorizations = { @Authorization(value="jwtToken") })
 	public ResponseEntity<Response<CategoryDTO>> findById(@PathVariable Integer id) throws CategoryFoundException{
 		Response<CategoryDTO> response = new Response<>();
 		
 		Optional<Category> category = service.findById(id);
 		
-		if(Category.isEmpty()) {
+		if(category.isEmpty()) {
 			throw new CategoryFoundException("Categoria não encontrado");
 		}
 		
@@ -80,7 +81,7 @@ public class CategoryController {
 	}
 	
 	@PostMapping
-	@ApiOperation(value = "Rota que cria um novo categoria")
+	@ApiOperation(value = "Rota que cria um novo categoria", authorizations = { @Authorization(value="jwtToken") })
 	public ResponseEntity<Response<CategoryDTO>> create(@Valid @RequestBody CategoryRequestDTO categoryDTO, BindingResult result) throws CategoryFoundException{
 		Response<CategoryDTO> response = new Response<>();
 		
@@ -99,7 +100,7 @@ public class CategoryController {
 	}
 	
 	@PutMapping
-	@ApiOperation(value = "Rota que atualiza os dados do categoria")
+	@ApiOperation(value = "Rota que atualiza os dados do categoria", authorizations = { @Authorization(value="jwtToken") })
 	public ResponseEntity<Response<CategoryDTO>> update(@Valid @RequestBody CategoryUpdateDTO categoryDTO, BindingResult result) throws CategoryInvalidUpdateException, CategoryFoundException{
 		Response<CategoryDTO> response = new Response<>();
 		
@@ -117,7 +118,7 @@ public class CategoryController {
 	}
 	
 	@DeleteMapping(value="/{id}")
-	@ApiOperation(value = "Rota que deleta um categoria")
+	@ApiOperation(value = "Rota que deleta um categoria", authorizations = { @Authorization(value="jwtToken") })
 	public ResponseEntity<Response<String>> delete(@PathVariable Integer id) throws CategoryFoundException{
 		Response<String> response = new Response<>();
 		

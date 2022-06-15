@@ -26,8 +26,7 @@ import com.project.cotafacil.model.dto.provider.ProviderRequestDTO;
 import com.project.cotafacil.model.provider.Provider;
 import com.project.cotafacil.service.provider.ProviderService;
 import io.swagger.annotations.ApiOperation;
-
-
+import io.swagger.annotations.Authorization;
 
 import java.util.Optional;
 
@@ -49,7 +48,7 @@ public class ProviderController {
 	
 	
 	@GetMapping
-	@ApiOperation(value = "Rota que busca todos os usuários ativos")
+	@ApiOperation(value = "Rota que busca todos os usuários ativos", authorizations = { @Authorization(value="jwtToken") })
 	public ResponseEntity<Response<Page<ProviderDTO>>> findAll( @PageableDefault(page = 0, size = 10, sort = {"id"}) Pageable pageable) throws ProviderFoundException{
 		Response<Page<ProviderDTO>> response = new Response<>();
 		
@@ -68,7 +67,7 @@ public class ProviderController {
 	}
 	
 	@GetMapping(value="/{id}")
-	@ApiOperation(value = "Rota que busca um usuário")
+	@ApiOperation(value = "Rota que busca um usuário", authorizations = { @Authorization(value="jwtToken") })
 	public ResponseEntity<Response<ProviderDTO>> findById(@PathVariable Integer id) throws ProviderFoundException{
 		Response<ProviderDTO> response = new Response<>();
 		
@@ -84,7 +83,7 @@ public class ProviderController {
 	}
 	
 	@PostMapping
-	@ApiOperation(value = "Rota que cria um novo usuário")
+	@ApiOperation(value = "Rota que cria um novo usuário", authorizations = { @Authorization(value="jwtToken") })
 	public ResponseEntity<Response<ProviderDTO>> create(@Valid @RequestBody ProviderRequestDTO providerDTO, BindingResult result) throws ProviderFoundException{
 		Response<ProviderDTO> response = new Response<>();
 		
@@ -103,7 +102,7 @@ public class ProviderController {
 	}
 	
 	@PutMapping
-	@ApiOperation(value = "Rota que atua os dados do usuário")
+	@ApiOperation(value = "Rota que atua os dados do usuário", authorizations = { @Authorization(value="jwtToken") })
 	public ResponseEntity<Response<ProviderDTO>> update(@Valid @RequestBody ProviderRequestDTO providerDTO, BindingResult result) throws ProviderFoundException, ProviderInvalidUpdateException{
 		Response<ProviderDTO> response = new Response<>();
 		
@@ -127,7 +126,7 @@ public class ProviderController {
 	}
 	
 	@DeleteMapping(value="/{id}")
-	@ApiOperation(value = "Rota que busca um usuário")
+	@ApiOperation(value = "Rota que busca um usuário", authorizations = { @Authorization(value="jwtToken") })
 	public ResponseEntity<Response<String>> delete(@PathVariable Integer id) throws ProviderFoundException{
 		Response<String> response = new Response<>();
 		
